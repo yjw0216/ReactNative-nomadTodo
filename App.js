@@ -7,23 +7,21 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StatusBar, StyleSheet, Text, View, TextInput, Dimensions } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const { height, width } = Dimensions.get('window');
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component{
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <StatusBar barStyle="light-content"/>
+        <Text style={styles.title}>
+          Kawai To do!
+        </Text>
+        <View style={styles.card}>
+          <TextInput style={styles.input} placeholder={"New to Do"}/>
+        </View>
       </View>
     );
   }
@@ -32,18 +30,35 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FC3E44',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  title : {
+    color: 'white',
+    fontSize: 45,
+    fontWeight: '200',
+    marginTop: 50,
+    marginBottom: 30
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  card: {
+    flex: 1,
+    backgroundColor: 'white',
+    width: width-25,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    ...Platform.select({
+      ios:{
+        shadowColor:"rgb(50, 50, 50)",
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowOffset: {
+          height: -1,
+          width: 0
+        }
+      },
+      android:{
+        evevation: 3
+      }
+    })
+  }
 });
