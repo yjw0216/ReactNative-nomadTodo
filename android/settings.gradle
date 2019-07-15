@@ -1,0 +1,3 @@
+rootProject.name = 'Kawai_Todo'
+
+include ':app'
