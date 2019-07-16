@@ -7,12 +7,16 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StatusBar, StyleSheet, Text, View, TextInput, Dimensions } from 'react-native';
-
+import {Platform, StatusBar, StyleSheet, Text, View, TextInput, Dimensions, ScrollView } from 'react-native';
+import Todo from './Todo'
 const { height, width } = Dimensions.get('window');
 
 export default class App extends Component{
+  state = {
+    newToDo: ""
+  }
   render() {
+    const {newToDo} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content"/>
@@ -20,13 +24,29 @@ export default class App extends Component{
           Kawai To do!
         </Text>
         <View style={styles.card}>
-          <TextInput style={styles.input} placeholder={"New to Do"}/>
+          <TextInput 
+            style={styles.input} 
+            placeholder={"New to Do"}
+            placeholderTextColor={'#999'}
+            returnKeyType={'done'}
+            autoFocus={false}
+            defaultvalue= {newToDo}
+            onChangeText={this._contorlNewTodo}
+            />
+          <ScrollView>
+            <Todo/>
+          </ScrollView>
         </View>
       </View>
     );
   }
 }
 
+_contorlNewTodo = text =>{
+  this.setState({
+    newToDo: text
+  })
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -60,5 +80,12 @@ const styles = StyleSheet.create({
         evevation: 3
       }
     })
+  },
+  input: {
+    padding: 20,
+    borderBottomColor: "#bbb",
+    borderBottomWidth: 1,
+    fontSize: 20
+
   }
 });
